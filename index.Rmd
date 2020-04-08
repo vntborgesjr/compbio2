@@ -9,4 +9,4 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Learning Computaion Biology 
 
- [computation biology](C:\Users\clari\Desktop\Vitor\R\Gotelli Course\homework_01.jpg)
+ [Homework 01](C:\Users\clari\Desktop\Vitor\R\Gotelli Course\homework_01.Rmd)
