@@ -45,7 +45,7 @@ está é a notação matemática para média (centralizado):
 $$
 \displaystyle\sum_{i}^{n} {\frac{x_i}{n}}
 $$
-está é a notação matemática para média (alinhado???): 
+está é a notação matemática para média (alinhado???): `$\displaystyle\sum_{i}^{n} {\frac{x_i}{n}}$`
 
 
 

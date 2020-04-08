@@ -1,0 +1,191 @@
+---
+title: 'Homework #5'
+author: "Vitor Borges"
+date: "08/04/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Working with matrices, lists and data frames
+
+1. Assign to the variable `n_dims` a single random integer between 3 and 10.
+
+```{r, eval = TRUE, echo = TRUE}
+
+n_dims <- sample(x = 3:10, size = 1)
+
+```
+- Create a vector of consecutive integers from 1 to _n_dims²_.
+
+```{r, eval = TRUE, echo = TRUE}
+
+vec1 <- 1:n_dims^2
+
+```
+
+- Use the sample function to randomly reshuffle these values.
+
+```{r, eval = TRUE, echo = TRUE}
+
+vec2 <- sample(x = vec1, size = length(vec1), replace = FALSE)
+
+
+```
+
+- create a square matrix with these elements.
+
+```{r, eval = TRUE, echo = TRUE}
+
+sq_mat <- matrix(data = vec2, nrow = 9, ncol = 9)
+
+```
+
+- print out the matrix.
+
+```{r, eval = TRUE, echo = TRUE}
+
+print(sq_mat)
+
+```
+
+- find a function in r to transpose the matrix.
+
+```{r, eval = TRUE, echo = TRUE}
+
+tsq_mat <- t(sq_mat)
+
+```
+
+- print it out again and note how it has changed.
+
+```{r, eval = TRUE, echo = TRUE}
+
+print(tsq_mat)
+
+```
+
+- calculate the sum and the mean of the elements in the first row and the last row.
+
+```{r, eval = TRUE, echo = TRUE}
+
+# sum and meam of first and last rows using functions sum() and mean()
+
+first_rowsum <- sum(sq_mat[1, ])
+last_rowsum <- sum(sq_mat[nrow(sq_mat), ])
+
+first_rowmean <- mean(sq_mat[1, ])
+last_rowmean <- mean(sq_mat[nrow(sq_mat), ])
+
+# sum and meam of first and last rows using functions rowSums() and rowMeans()
+
+first_last_rowsum <- rowSums(sq_mat)[c(1, nrow(sq_mat))]
+first_last_rowmean <- rowMeans(sq_mat)[c(1, nrow(sq_mat))]
+
+print(cat("sum of first row =", first_last_rowsum[1], "and mean of first row =", first_last_rowmean[2]))
+print(cat("sum of last row =", first_last_rowsum[2], "and mean of last row =", first_last_rowmean[2]))
+
+```
+
+- read about the `eigen()` function and use it on your matrix
+
+```{r, eval = TRUE, echo = TRUE}
+
+spec_decomp <- eigen(x = sq_mat)
+
+```
+
+- look carefully at the elements of $values and $vectors. What kind of numbers are these?
+
+- dig in with the typeof() function to figure out their type.
+
+```{r, eval = TRUE, echo = TRUE}
+
+typeof(spec_decomp$values) 
+typeof(spec_decomp$vectors) 
+
+```
+
+- if have set your code up properly, you should be able to re-run it and create a matrix of different size because n_dims will change.
+
+2. Create a list with the following named elements:
+
+- `my_matrix`, which is a 4 x 4 matrix filled with random uniform values
+- `my_logical` which is a 100-element vector of TRUE or FALSE values. Do this efficiently by setting up a vector of random values and then applying an inequality to it.
+- `my_letters`, which is a 26-element vector of all the lower-case letters in random order.
+
+```{r, eval = TRUE, echo = TRUE}
+
+my_matrix <- matrix(data = runif(n = 16), nrow = 4, ncol = 4)
+my_logical <- runif(n = 100) > 0.6
+my_letter <- sample(x = letters, replace = FALSE)
+my_list <- list(my_matrix, my_logical, my_letter)
+
+```
+
+- create a new list, which has the element[2,2] from the matrix, the second element of the logical vector, and the second element of the letters vector.
+- use the typeof() function to confirm the underlying data types of each component in this list
+- combine the underlying elements from the new list into a single atomic vector with the c() function.
+- what is the data type of this vector?
+
+```{r, eval = TRUE, echo = TRUE}
+
+new_list <- list(my_list[[1]][2, 2], my_list[[2]][2], my_list[[3]][2])
+
+typeof(new_list[[1]])
+typeof(new_list[[2]])
+typeof(new_list[[3]])
+
+new_vector <- c(new_list[[1]], new_list[[2]], new_list[[3]])
+
+typeof(new_vector)
+
+```
+
+3. Create a data frame with two variables (= columns) and 26 cases (= rows).
+
+- call the first variable my_unis and fill it with a random uniform value from 0 to 10
+
+- call the second variable my_letters and fill it with 26 capital letters in random order.
+
+```{r, eval = TRUE, echo = TRUE}
+
+data <- data.frame(my_unis = runif(n = 26, min = 0, max = 10), my_letters = sample(x = LETTERS, replace = FALSE))
+
+```
+
+- for the first variable, use a single line of code in R to select 4 random rows and replace the numerical values in those rows with NA.
+
+```{r, eval = TRUE, echo = TRUE}
+
+data[sample(nrow(data), size = 4, replace = FALSE), 1] <- NA
+data
+
+```
+
+- for the first variable, write a single line of R code to identify which rows have the missing values.
+
+```{r, eval = TRUE, echo = TRUE}
+
+which(is.na(data$my_unis))
+which(!complete.cases(data$my_unis))
+
+```
+
+- for the second variable, sort it in alphabetical order
+
+```{r, eval = TRUE, echo = TRUE}
+
+sort(data$my_letters, decreasing = FALSE)
+
+```
+
+- calculate the column mean for the first variable.
+
+```{r, eval = TRUE, echo = TRUE}
+
+mean(x = data$my_unis, na.rm = TRUE)
+
+```
